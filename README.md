@@ -2,7 +2,6 @@
 
 SubmitPublicTest.ipynb # First submission - 1_0.174234 using pyannote AMI model, and a 0.66 cosine dist threshold, based on 80% of data split such that 50% is same speaker and 50% not same speaker.
 
-# Notes
 
 Embedding:
 * Maybe extracting embedding from just parts of the clip with volume is better?
