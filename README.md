@@ -4,10 +4,18 @@
 
 The public test set is 50% match and 50 non-match, so if the model is produces more Matches than Non-Matches, need to adjust the threshold accordingly to optimise accuracy.  
 
+# To do before submission
+
+* fine-tune on entire train set
+* https://github.com/didi/delta try this repo --> seems to report state of the art EER 
+* Pyannote --> add augmentation, the paper says TripletLoss performs better
+* What are the failure cases? Does it fail on longer clips more than smaller clips? Can a human discern the failure cases? Are there specific background sounds in the failure cases etc.
+
 # Brainstorming
 
-Embedding:
 * Maybe extracting embedding from just parts of the clip with volume is better?
+* We have gender labels for training, could consider using a pretrained or even fine-tuned gender model as a way of eliminating pairing audio1 with audio2 if different genders.
+
 
 Hidden features:
 
