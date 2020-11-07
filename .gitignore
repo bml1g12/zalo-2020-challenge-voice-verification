@@ -1,3 +1,4 @@
 .ipynb_checkpoints/
 Train-Test-Data.zip
 Train-Test-Data/
+*.npy
