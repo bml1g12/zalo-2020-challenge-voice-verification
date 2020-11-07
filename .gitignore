@@ -2,3 +2,4 @@
 Train-Test-Data.zip
 Train-Test-Data/
 *.npy
+*.pickle
