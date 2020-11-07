@@ -1,0 +1,69 @@
+Databases:
+   AMI: ./amicorpus/*/audio/{uri}.wav
+   MUSAN: ./musan/{uri}.wav
+   ZALODATASET: /media/ben/datadrive/Zalo/voice-verification/Train-Test-Data/dataset/{uri}.wav
+
+Protocols:
+   AMI:
+      SpeakerDiarization:
+         MixHeadset:
+           train:
+              uri: ./AMI/MixHeadset.train.lst
+              annotation: ./AMI/MixHeadset.train.rttm
+              annotated: ./AMI/MixHeadset.train.uem
+           development:
+              uri: ./AMI/MixHeadset.development.lst
+              annotation: ./AMI/MixHeadset.development.rttm
+              annotated: ./AMI/MixHeadset.development.uem
+           test:
+              uri: ./AMI/MixHeadset.test.lst
+              annotation: ./AMI/MixHeadset.test.rttm
+              annotated: ./AMI/MixHeadset.test.uem
+              
+#   ZALODATASET:
+#      SpeakerDiarization:
+#         MixHeadset:
+#           train:
+#              uri: ./ZALODATASET/train.lst
+#              annotation: ./ZALODATASET/train.rttm
+#              annotated: ./ZALODATASET/train.uem
+#           development:
+#              uri: ./ZALODATASET/val.lst
+#              annotation: ./ZALODATASET/val.rttm
+#              annotated: ./ZALODATASET/val.uem
+#           test:
+#              uri: ./ZALODATASET/test.lst
+#              annotation: ./ZALODATASET/test.rttm
+#              annotated: ./ZALODATASET/test.uem
+     
+# https://github.com/pyannote/pyannote-database/blob/03b211daeca209de901576dfe9e0b35f48afc0a2/tests/data/database.yml 
+# https://github.com/pyannote/pyannote-database#speaker-verification-1
+# https://github.com/pyannote/pyannote-database/blob/develop/pyannote/database/protocol/speaker_verification.py
+   ZALODATASET:
+      SpeakerVerification:
+         MixHeadset:
+           train:
+              uri: ./ZALODATASET/train.lst
+              annotation: ./ZALODATASET/train.rttm
+              annotated: ./ZALODATASET/train.uem
+              trial: ./ZALODATASET/train.trial
+           development:
+              uri: ./ZALODATASET/development.lst
+              annotation: ./ZALODATASET/development.rttm
+              annotated: ./ZALODATASET/development.uem
+              trial: ./ZALODATASET/development.trial
+           test:
+              uri: ./ZALODATASET/test.lst
+              annotation: ./ZALODATASET/test.rttm
+              annotated: ./ZALODATASET/test.uem  
+              trial: ./ZALODATASET/test.trial
+   MUSAN:
+      Collection:
+         BackgroundNoise:
+            uri: ./MUSAN/background_noise.txt
+         Noise:
+            uri: ./MUSAN/noise.txt
+         Music:
+            uri: ./MUSAN/music.txt
+         Speech:
+            uri: ./MUSAN/speech.txt 
