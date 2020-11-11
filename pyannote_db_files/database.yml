@@ -1,6 +1,7 @@
 Databases:
    AMI: ./amicorpus/*/audio/{uri}.wav
    MUSAN: ./musan/{uri}.wav
+   ZALODATASET: /media/ben/datadrive/Zalo/voice-verification/Train-Test-Data/dataset/{uri}.wav
 
 Protocols:
    AMI:
@@ -18,6 +19,28 @@ Protocols:
               uri: ./AMI/MixHeadset.test.lst
               annotation: ./AMI/MixHeadset.test.rttm
               annotated: ./AMI/MixHeadset.test.uem
+              
+# https://github.com/pyannote/pyannote-database/blob/03b211daeca209de901576dfe9e0b35f48afc0a2/tests/data/database.yml 
+# https://github.com/pyannote/pyannote-database#speaker-verification-1
+# https://github.com/pyannote/pyannote-database/blob/develop/pyannote/database/protocol/speaker_verification.py
+   ZALODATASET:
+      SpeakerVerification:
+         BenProtocol:
+           train:
+              uri: ./ZALODATASET/train.lst
+              annotation: ./ZALODATASET/train.rttm
+              annotated: ./ZALODATASET/train.uem
+              trial: ./ZALODATASET/train.trial
+           development:
+              uri: ./ZALODATASET/development.lst
+              annotation: ./ZALODATASET/development.rttm
+              annotated: ./ZALODATASET/development.uem
+              trial: ./ZALODATASET/development.trial
+           test:
+              uri: ./ZALODATASET/test.lst
+              annotation: ./ZALODATASET/test.rttm
+              annotated: ./ZALODATASET/test.uem  
+              trial: ./ZALODATASET/test.trial
    MUSAN:
       Collection:
          BackgroundNoise:
