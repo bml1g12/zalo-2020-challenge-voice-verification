@@ -10,6 +10,7 @@ I used a custom branch here to fix a bug whereby small clips get 100% omitted.
 4. Follow https://github.com/pyannote/pyannote-audio/tree/master/tutorials/data_preparation#audio-files to download AMI dataset (optional)  and to download  MUSAN dataset (required for dataaugmentation)
 Made a data folder, on my machine I have:
 
+```
 MYFOLDER/MUSAN/
    background_noise.txt
    music.txt
@@ -23,7 +24,8 @@ MYFOLDER/ZALODATASET/
    development.trial
    development.uem
    #etc. for train/test. See pyannote_db_files 
-   
+```
+
 5. Copy pyannote_db_files/database.yml to MYFOLDER and then set the path of ZALODATASET to where the actual .wav files are on your machine.
 
 6. Add to .bashrc `export PYANNOTE_DATABASE_CONFIG="/MYFOLDER/database.yml"` so pyannote can always find your data
