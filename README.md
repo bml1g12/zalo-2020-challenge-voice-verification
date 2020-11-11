@@ -7,6 +7,7 @@ The public test set is 50% match and 50 non-match, so if the model is produces m
 # To do before submission
 
 * fine-tune on entire train set
+* Try shorter training with shorter duration for the embedddings, as I have a lot of micro clips https://github.com/pyannote/pyannote-audio/issues/458
 * https://github.com/didi/delta try this repo --> seems to report state of the art EER 
 * Pyannote --> add augmentation, the paper says TripletLoss performs better
 * What are the failure cases? Does it fail on longer clips more than smaller clips? Can a human discern the failure cases? Are there specific background sounds in the failure cases etc.
@@ -49,6 +50,7 @@ SubmitPublicTest.ipynb # First submission - 1_0.174234 using pyannote AMI model,
 | 4 - VoxCeleb pretrained + finetuned changed sourcecode to "loose" from here on. | 0.8892 | | | Threshold using set for balanced prec/recall. 49 epochs based on optimum EER on my val set (0.084)|
 | 5 - VoxCeleb pretrained (repeat of 4 at epoch 19). | 0.8899 | | | Threshold using set for balanced prec/recall. 19 epochs. EER on my val set 0.091 (0.084). |
 | 6 - VoxCeleb pretrained (repeat of 4 at epoch 19). | 0.88948 | | | tried setting all items with large duration disparities between Audio1 and Audio2 (> 26.49s) as non-match. reduced accuracy so I guess this is not a useful feature. |
+| 7 - VoxCeleb pretrained using https://github.com/juanmc2005/SpeakerEmbeddingLossComparison "juan" |0.90534 | | 0.91515 | Note that I did an experiment locally whereby I used the default config.yml in this repo, and trained for 20 epoch but got same personal0-val as 6. I noticed many clips are small, and so made some changes duration: 0.75 (default 3). I noticed we might not have a huge amount of audio from each speaker so set: label_min_duration: 10 (default 30). I put batch size 512 (no real reason - trying to make it train faster!)|
 # Pyannote tips
 
 Line 125.py of audio/applications/speaker_embedding.py needed editing https://github.com/pyannote/pyannote-audio/issues/471
