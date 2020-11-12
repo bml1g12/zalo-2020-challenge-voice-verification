@@ -1,0 +1,39 @@
+architecture:
+  name: pyannote.audio.models.SincTDNN
+  params:
+    embedding:
+      batch_normalize: false
+      unit_normalize: false
+    sincnet:
+      instance_normalize: true
+      stride:
+      - 5
+      - 1
+      - 1
+      waveform_normalize: true
+    tdnn:
+      embedding_dim: 512
+data_augmentation:
+  name: AddNoise
+  params:
+    collection: MUSAN.Collection.BackgroundNoise
+    snr_max: 20
+    snr_min: 10
+feature_extraction:
+  name: pyannote.audio.features.RawAudio
+  params:
+    sample_rate: 16000
+scheduler:
+  name: ConstantScheduler
+  params:
+    learning_rate: 0.01
+task:
+  name: AdditiveAngularMarginLoss
+  params:
+    duration: 0.75
+    label_min_duration: 10
+    margin: 0.05
+    per_epoch: 1
+    per_fold: 512
+    per_label: 1
+    s: 10

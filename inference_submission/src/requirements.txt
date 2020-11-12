@@ -1,0 +1,5 @@
+pyannote.core==4.1
+pyannote.database==4.0.2
+pyannote.db.voxceleb==1.0.2
+pyannote.metrics==3.0.1
+pyannote.pipeline==1.5.2 
