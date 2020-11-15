@@ -51,7 +51,8 @@ SubmitPublicTest.ipynb # First submission - 1_0.174234 using pyannote AMI model,
 | 5 - VoxCeleb pretrained (repeat of 4 at epoch 19). | 0.8899 | | | Threshold using set for balanced prec/recall. 19 epochs. EER on my val set 0.091 (0.084). |
 | 6 - VoxCeleb pretrained (repeat of 4 at epoch 19). | 0.88948 | | | tried setting all items with large duration disparities between Audio1 and Audio2 (> 26.49s) as non-match. reduced accuracy so I guess this is not a useful feature. |
 | 7 - VoxCeleb pretrained using source [0] "juan" |0.90534 | | 0.91515 | Note that I did an experiment locally whereby I used the default config.yml in this repo, and trained for 20 epoch but got same personal0-val as 6. I noticed many clips are small, and so made some changes duration: 0.75 (default 3). I noticed we might not have a huge amount of audio from each speaker so set: label_min_duration: 10 (default 30). I put batch size 512 (no real reason - trying to make it train faster!)|
-| 7a | | | 0.7303 (new val set)  | Fixed the bug issue with .trials and df_val having wrong labels; actually not ensurely sure the labels were wrong (just the uris) but repeating 7, I selected the best ERR(epoch 31, 0.0495841 EER on the new val set and submit.|
+| 7a | | | 0.9303 (new val set)  | Fixed the bug issue with .trials and df_val having wrong labels; actually not ensurely sure the labels were wrong (just the uris) but repeating 7, I selected the best ERR(epoch 31, 0.0495841 EER on the new val set and submit.|
+| 8 | did not bother to subit | 0.931|  (new val set)  | Repeat of 7a but min speaker duration 1. epoch 30 Val EER 0.048865|
 
 __Sources__:
 [0] https://github.com/juanmc2005/SpeakerEmbeddingLossComparison 
