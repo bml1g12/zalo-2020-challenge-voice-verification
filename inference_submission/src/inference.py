@@ -23,6 +23,7 @@ class InferenceEngine:
             audio1_embedding = np.mean(self.engine(
                 {"uri": "audio1uri", "audio": audio1_filepath}),
                 axis=0, keepdims=True)
+            self.filename2embedding[audio1_filepath] = audio1_embedding
 
         if audio2_filepath in self.filename2embedding:
             audio2_embedding = self.filename2embedding[audio2_filepath]
@@ -30,6 +31,7 @@ class InferenceEngine:
             audio2_embedding = np.mean(self.engine(
                 {"uri": "audio2uri", "audio": audio2_filepath}),
                 axis=0, keepdims=True)
+            self.filename2embedding[audio2_filepath] = audio2_embedding
 
         distance = cdist(audio1_embedding, audio2_embedding, metric="cosine")
 

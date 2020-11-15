@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from __future__ import print_function
+import code
 import os
 import sys
 import numpy as np
@@ -36,10 +37,11 @@ global args
 #  /media/ben/datadrive/Software/VGG-Speaker-Recognition/model/gvlad_softmax
 #  /resnet34_vlad8_ghost2_bdim512_deploy/weights.h5, EER: 0.483208955223
 
-
+#  EER: 0.0308370044053
+# 2020-11-15_resnet34s_bs16_adam_lr0.001_vlad8_ghost2_bdim512_ohemlevel0/weights-42-0.931.h5
 
 arguments = "--net resnet34s --gpu 0 --ghost_cluster 2 --vlad_cluster 8 --loss softmax --resume " \
-            "/media/ben/datadrive/Software/VGG-Speaker-Recognition/model/gvlad_softmax/2020-11-15_resnet34s_bs16_adam_lr0.001_vlad8_ghost2_bdim512_ohemlevel0/weights-21-0.062.h5 --data_path " \
+            "/media/ben/datadrive/Software/VGG-Speaker-Recognition/model/gvlad_softmax/2020-11-15_resnet34s_bs16_adam_lr0.001_vlad8_ghost2_bdim512_ohemlevel0/weights-42-0.931.h5 --data_path " \
             "/media/ben/datadrive/Zalo/voice-verification/Train-Test-Data/dataset/".split()
 
 ZALO_TEST = "/media/ben/datadrive/Zalo/voice-verification/vgg_db_files/val_trials.txt"
@@ -108,29 +110,42 @@ def main():
 
     # The feature extraction process has to be done sample-by-sample,
     # because each sample is of different lengths.
+    code.interact(local=locals())
+
+    print("gathering features")
     total_length = len(unique_list)
     feats, scores, labels = [], [], []
     for c, ID in enumerate(unique_list):
-        if c % 50 == 0: print('Finish extracting features for {}/{}th wav.'.format(c, total_length))
-        specs = ut.load_data(ID, win_length=params['win_length'], sr=params['sampling_rate'],
-                             hop_length=params['hop_length'], n_fft=params['nfft'],
-                             spec_len=params['spec_len'], mode='eval')
+        if c % 10 == 0: print('Finish extracting features for {}/{}th wav.'.format(c, total_length))
+        specs = ut.load_data(ID, win_length=params['win_length'], sr=params['sampling_rate'], hop_length=params['hop_length'], n_fft=params['nfft'], spec_len=params['spec_len'], mode='eval')
+        # specs.shape == (257, 1117)
         specs = np.expand_dims(np.expand_dims(specs, 0), -1)
-
+        # specs.shape ==  (1, 257, 1117, 1)
         v = network_eval.predict(specs)
+        # v.shape == (1, 512)
         feats += [v]
 
     feats = np.array(feats)
 
+    print("Computing similarities")
     # ==> compute the pair-wise similarity.
     for c, (p1, p2) in enumerate(zip(list1, list2)):
+        # scores : 0.480307102203, gt : 0
+        # scores : 0.613937497139, gt : 0
+        # scores : 0.456035703421, gt : 0
+        # scores : 0.537688136101, gt : 0
+        # scores : 0.432827711105, gt : 0
+        # scores : 0.368318378925, gt : 0
+        # scores : 0.465793728828, gt : 0
+        # scores : 0.625230908394, gt : 0
         ind1 = np.where(unique_list == p1)[0][0]
         ind2 = np.where(unique_list == p2)[0][0]
-
-        v1 = feats[ind1, 0]
+        # from the hash table of unique speaker embeddings, extract relevant items
+        v1 = feats[ind1, 0] # shape.(512,)
         v2 = feats[ind2, 0]
 
-        scores += [np.sum(v1 * v2)]
+        scores += [np.sum(v1 * v2)] # v1 * v2 0.4803071
+
         labels += [verify_lb[c]]
         print('scores : {}, gt : {}'.format(scores[-1], verify_lb[c]))
 
