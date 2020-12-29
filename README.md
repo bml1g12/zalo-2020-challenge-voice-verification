@@ -1,5 +1,7 @@
 # zalo-2020-challenge-voice-verification
 
+![Zalo Award](ZaloAward.png)
+
 # Strategy
 
 The public test set is 50% match and 50 non-match, so if the model is produces more Matches than Non-Matches, need to adjust the threshold accordingly to optimise accuracy.  
